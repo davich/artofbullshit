@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <div id="container"></div>
+
+    <script src="https://fb.me/react-15.0.0.js"></script>
+    <script src="https://fb.me/react-dom-15.0.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+    <script type="text/babel">
+      class Image extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            slide: 0,
+            imageSrc: null,
+          };
+        }
+
+        changeSlide() {
+          fetch(
+            `https://source.unsplash.com/random/${window.innerWidth}x${window.outerHeight}`,
+            {
+              method: 'GET',
+              redirect: 'follow',
+            }
+          )
+            .then(response => {
+              this.setState(prevState => ({
+                ...prevState,
+                slide: prevState.slide + 1,
+                imageSrc: response.url,
+              }));
+            })
+            .catch(function(err) {
+              console.info(err + ' url: ' + url);
+            });
+        }
+
+        componentDidMount() {
+          this.changeSlide();
+          this.interval = setInterval(() => this.changeSlide(), 20 * 1000);
+        }
+
+        componentWillUnmount() {
+          clearInterval(this.interval);
+        }
+
+        render() {
+          return (
+            <div>
+              <img src={this.state.imageSrc} />
+              <div
+                style={{
+                  position: 'absolute',
+                  right: 0,
+                  bottom: 0,
+                  height: '20px',
+                  minWidth: '50px',
+                  backgroundColor: 'white',
+                  zIndex: 2,
+                  border: '1px solid #ccc',
+                  padding: '3px',
+                }}
+              >
+                {this.state.slide}
+              </div>
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<Image />, document.querySelector('#container'));
+    </script>
+  </body>
+</html>
