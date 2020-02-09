@@ -16,6 +16,7 @@
           this.state = {
             slide: 0,
             imageSrc: null,
+            countdown: 5,
           };
         }
 
@@ -39,9 +40,21 @@
             });
         }
 
+        countDown() {
+          this.setState(prevState => ({
+            ...prevState,
+            countdown: prevState.countdown - 1,
+          }));
+
+          if (this.state.countdown <= 0) {
+            clearInterval(this.interval);
+            this.changeSlide();
+            this.interval = setInterval(() => this.changeSlide(), 20 * 1000);
+          }
+        }
+
         componentDidMount() {
-          this.changeSlide();
-          this.interval = setInterval(() => this.changeSlide(), 20 * 1000);
+          this.interval = setInterval(() => this.countDown(), 1000);
         }
 
         componentWillUnmount() {
@@ -49,26 +62,54 @@
         }
 
         render() {
-          return (
-            <div>
-              <img src={this.state.imageSrc} />
+          if (this.state.countdown === 0) {
+            return (
+              <div>
+                <img src={this.state.imageSrc} />
+                <div
+                  style={{
+                    position: 'absolute',
+                    right: 0,
+                    bottom: 0,
+                    height: '20px',
+                    minWidth: '50px',
+                    backgroundColor: 'white',
+                    zIndex: 2,
+                    border: '1px solid #ccc',
+                    padding: '3px',
+                    textAlign: 'center',
+                  }}
+                >
+                  {this.state.slide}
+                </div>
+              </div>
+            );
+          } else {
+            return (
               <div
                 style={{
                   position: 'absolute',
+                  top: 0,
+                  left: 0,
                   right: 0,
                   bottom: 0,
-                  height: '20px',
-                  minWidth: '50px',
-                  backgroundColor: 'white',
-                  zIndex: 2,
-                  border: '1px solid #ccc',
-                  padding: '3px',
+                  backgroundColor: '#333',
+                  color: '#ccc',
                 }}
               >
-                {this.state.slide}
+                <span
+                  style={{
+                    top: '45%',
+                    left: '49%',
+                    position: 'absolute',
+                    fontSize: '100px',
+                  }}
+                >
+                  {this.state.countdown}
+                </span>
               </div>
-            </div>
-          );
+            );
+          }
         }
       }
 
