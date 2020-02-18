@@ -47,6 +47,10 @@ class Bullshit extends React.Component {
 
 class Countdown extends React.Component {
   render() {
+    if (this.props.count <= 0) {
+      return <div></div>;
+    }
+
     return (
       <div
         style={{
@@ -57,7 +61,7 @@ class Countdown extends React.Component {
           bottom: 0,
           backgroundColor: '#333',
           color: '#ccc',
-          zIndex: this.props.count === 0 ? 0 : 250,
+          zIndex: this.props.count === 0 ? 0 : 25,
         }}
       >
         <span
@@ -124,14 +128,14 @@ class Image extends React.Component {
           src={this.state.imageSrc1}
           style={{
             position: 'absolute',
-            zIndex: this.props.slide % 2 === 0 ? 100 : 200,
+            left: this.props.slide % 2 === 0 ? -10000 : 0,
           }}
         />
         <img
           src={this.state.imageSrc2}
           style={{
             position: 'absolute',
-            zIndex: this.props.slide % 2 === 0 ? 200 : 100,
+            left: this.props.slide % 2 === 0 ? 0 : -10000,
           }}
         />
         <div
@@ -142,7 +146,7 @@ class Image extends React.Component {
             height: '20px',
             minWidth: '50px',
             backgroundColor: 'white',
-            zIndex: 205,
+            zIndex: 21,
             border: '1px solid #ccc',
             padding: '3px',
             textAlign: 'center',
