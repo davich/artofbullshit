@@ -9,7 +9,7 @@ class Form extends Component {
     var url = new URL(window.location.href);
     this.state = {
       redirectTo: 'https://www.google.com.au',
-      email: url.searchParams.get('email') || 'no email provided',
+      email: url.searchParams.get('email') || '',
       step: 1,
       day: '1',
       q1: '',
@@ -48,13 +48,30 @@ class Form extends Component {
   }
 
   render() {
+    if (this.state.email.includes('@')) {
+      var emailField = (
+        <input type="hidden" name="email" value={this.state.email} />
+      );
+    } else {
+      var emailField = (
+        <div>
+          <div>Enter your email to continue</div>
+          <input
+            type="text"
+            name="email"
+            value={this.state.email}
+            onChange={e => this.handleChange(e, 'email')}
+          />
+        </div>
+      );
+    }
+
     return (
       <form
         action="https://getsimpleform.com/messages?form_api_token=cef459a88cc906188482465c742d8b73"
         method="post"
       >
         <input type="hidden" name="redirect_to" value={this.state.redirectTo} />
-        <input type="hidden" name="email" value={this.state.email} />
         <input type="hidden" name="day" value={this.state.day} />
         <Step currentStep={this.state.step} step={1}>
           <h1>Better Me</h1>
@@ -63,6 +80,8 @@ class Form extends Component {
             practice of coaching. This week we're focusing on the skill of
             asking questions.
           </div>
+
+          {emailField}
 
           <input type="button" onClick={this.nextStep} value="Next" />
         </Step>
