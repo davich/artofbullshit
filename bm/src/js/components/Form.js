@@ -80,10 +80,17 @@ class Form extends Component {
             practice of coaching. This week we're focusing on the skill of
             asking questions.
           </div>
-
+          <br />
           {emailField}
 
-          <input type="button" onClick={this.nextStep} value="Next" />
+          <div className="buttons">
+            <input
+              type="button"
+              onClick={this.nextStep}
+              className="button"
+              value="Next"
+            />
+          </div>
         </Step>
 
         <Step currentStep={this.state.step} step={2}>
@@ -91,12 +98,6 @@ class Form extends Component {
             Do you know why it is important to ask your mentees questions before
             giving advice?
           </div>
-          {/*          <input
-            type="text"
-            name="q1"
-            value={this.state.q1}
-            onChange={e => this.handleChange(e, 'q1')}
-          />*/}
 
           <div>
             <input type="radio" id="q1yes" name="q1" value="yes" />
@@ -106,8 +107,20 @@ class Form extends Component {
             <label htmlFor="q1no">No, please remind me</label>
           </div>
 
-          <input type="button" onClick={this.prevStep} value="Previous" />
-          <input type="button" onClick={this.nextStep} value="Next" />
+          <div className="buttons">
+            <input
+              type="button"
+              onClick={this.prevStep}
+              className="button"
+              value="Previous"
+            />
+            <input
+              type="button"
+              onClick={this.nextStep}
+              className="button"
+              value="Next"
+            />
+          </div>
         </Step>
 
         <Step currentStep={this.state.step} step={3}>
@@ -122,8 +135,20 @@ class Form extends Component {
             <li>They will see you as a more valuable mentor</li>
           </ol>
 
-          <input type="button" onClick={this.prevStep} value="Previous" />
-          <input type="button" onClick={this.nextStep} value="Next" />
+          <div className="buttons">
+            <input
+              type="button"
+              onClick={this.prevStep}
+              className="button"
+              value="Previous"
+            />
+            <input
+              type="button"
+              onClick={this.nextStep}
+              className="button"
+              value="Next"
+            />
+          </div>
         </Step>
 
         <Step currentStep={this.state.step} step={4}>
@@ -133,8 +158,21 @@ class Form extends Component {
             To track your progress we're going to ask four questions about your
             one on ones. This will also help us personalise your experience.
           </div>
-          <input type="button" onClick={this.prevStep} value="Previous" />
-          <input type="button" onClick={this.nextStep} value="Next" />
+
+          <div className="buttons">
+            <input
+              type="button"
+              onClick={this.prevStep}
+              className="button"
+              value="Previous"
+            />
+            <input
+              type="button"
+              onClick={this.nextStep}
+              className="button"
+              value="Next"
+            />
+          </div>
         </Step>
 
         <Step currentStep={this.state.step} step={5}>
@@ -142,8 +180,15 @@ class Form extends Component {
             That’s it for day one! Over the course of this week we are going to
             supercharge your coaching ability.
           </div>
-          <input type="button" onClick={this.prevStep} value="Previous" />
-          <input type="submit" value="Submit" />
+          <div className="buttons">
+            <input
+              type="button"
+              onClick={this.prevStep}
+              className="button"
+              value="Previous"
+            />
+            <input type="submit" value="Submit" className="submitButton" />
+          </div>
         </Step>
       </form>
     );
